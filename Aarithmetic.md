@@ -62,3 +62,48 @@ public void checkenRabbit(int head,int foot){
     System.out.println("chicken:" + chicken + " rabbit:" + rabbit);
 }
 </pre>
+
+### 6、给定一个int数组，里面包含正、负整数，设定一个算法将正整数移动到左边，负整数移动到右边，时间复杂度尽量O(n)
+```java
+public int[] sort(int[] array){
+       //如果数组的长度小于1，直接返回
+       if (array.length <=1) {
+           return array;
+       }
+       //折半查找对比
+       int length = array.length;
+       int end = length - 1;
+       for (int i = 0; i < length / 2 + 1; i++) {
+           if (array [i] < 0) {
+               while (array [end] < 0 && i<end) {
+                   end--;
+               }
+               //左边的负数与右边的正整数交换位置
+               int temp = array [i];
+               array [i] = array [end];
+               array [end] = temp;
+           }
+       }
+     return array; 
+}
+```
+
+### 7、给定一个“flatten”字典对象，其键是以点分隔的，实现一个函数，将其转换为“嵌套”字典对象。
+例如，{'A'：1，'B.A'：2，'B.B'：3，'CC.D.E'：4，'CC.D.F'：5}
+转换为：
+```java
+{
+  'A'：1，
+  'B'：{
+    'A2，
+    'B'：3，
+ }，
+  'CC'：{
+    'D'：{
+      'E'：4，
+      'F'：5，
+   }
+ }
+}
+```
+要求保证字典中没有键是其他键的前缀。
