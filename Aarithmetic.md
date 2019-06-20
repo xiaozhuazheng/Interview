@@ -9,7 +9,7 @@
 ### 2、常见排序、查找算法
 冒泡排序:</br>
 冒泡排序是比较简单的排序，通过循环不断的比较相邻位置的大小，将大的数一个一个的浮出，放在最右端。</br>
-！[conv_ops]()
+![conv_ops](/image/maopao.gif)
 ```java
 public int[] bubbleSort(int[] a){
         int len = a.length;
@@ -31,7 +31,7 @@ public int[] bubbleSort(int[] a){
 
 选择排序:</br>
 选择排序的思路是在数组里找到最小的数放第一个位置，然后再去查找第二小的数放在第二位置，依次这样，最后确定所有位置的数值。</br>
-！[conv_ops]()
+![conv_ops](/image/select.gif)
 ```java
 public int[] selectSort(int[] a){
         int len = a.length;
@@ -54,7 +54,7 @@ public int[] selectSort(int[] a){
 ```
 插入排序：</br>
 插入排序的思想为假定前面j项已经排列完成，然后将j+1项插入到钱j项中，最终达到排序的效果。</br>
-！[conv_ops]()
+![conv_ops](/image/insert.gif)
 ```java
 public int[] insertSort(int[] a){
         int len = a.length;
