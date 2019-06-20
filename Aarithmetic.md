@@ -7,6 +7,72 @@
 ![avatar](/image/time.jpg)
 
 ### 2、常见排序、查找算法
+冒泡排序:</br>
+冒泡排序是比较简单的排序，通过循环不断的比较相邻位置的大小，将大的数一个一个的浮出，放在最右端。</br>
+！[conv_ops]()
+```java
+public int[] bubbleSort(int[] a){
+        int len = a.length;
+        if (len == 0){
+            return a;
+        }
+        for (int i =0;i<len;i++){
+            for (int j = 0;j<len -i-1;j++){
+                if (a[j+1] < a[j]){
+                    int temp = a[j+1];
+                    a[j+1] = a[j];
+                    a[j] = temp;
+                }
+            }
+        }
+        return a;
+    }
+```
+
+选择排序:</br>
+选择排序的思路是在数组里找到最小的数放第一个位置，然后再去查找第二小的数放在第二位置，依次这样，最后确定所有位置的数值。</br>
+！[conv_ops]()
+```java
+public int[] selectSort(int[] a){
+        int len = a.length;
+        if (len == 0){
+            return a;
+        }
+        for (int i =0;i<len - 1;i++){
+            int index = i;
+            for (int j = i;j < len;j++){
+                if (a[j] < a[index]){
+                    index = j;
+                }
+            }
+            int temp = a[index];
+            a[index] = a[i];
+            a[i] = temp;
+        }
+        return a;
+    }
+```
+插入排序：</br>
+插入排序的思想为假定前面j项已经排列完成，然后将j+1项插入到钱j项中，最终达到排序的效果。</br>
+！[conv_ops]()
+```java
+public int[] insertSort(int[] a){
+        int len = a.length;
+        if (len == 0){
+            return a;
+        }
+        for (int i = 1;i<len - 1;i++){
+            for (int j = 0;j < i;j++){
+                if (a[j] < a[j+1]){
+                    int temp = a[j+1];
+                    a[j+1] = a[i];
+                    a[i] = temp;
+                }
+            }
+        }
+        return a;
+    }
+```
 
 ### 3、在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。
 <pre class="prettyprit lang-java">
