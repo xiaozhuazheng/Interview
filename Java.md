@@ -1,4 +1,4 @@
-## 记录java以及计算机网络相关！
+## 记录java相关！
 
 ### 1、在java中，public、privite、protected修饰符
 在java中，public、privite、protected三种修饰符用来修饰类以及类的成员变量和方法。</br>
@@ -45,6 +45,7 @@ java是一种面向对象的语言，在它的眼里，万物皆对象。而面�
 * 在接口中定义的任何字段都自动是static和final的。
 
 ### 内部类
+
 ### 泛型
 ### 枚举
 ### 多线程
