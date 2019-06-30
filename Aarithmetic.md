@@ -220,3 +220,34 @@ HashMap<Character, Integer> map=new HashMap();
         return stb.toString();
     }
 ```
+### 10、输入一个链表，按链表值从尾到头的顺序返回一个ArrayList。
+一种比较基础的办法，利用栈‘先进后出’的特性，当然也可以先按顺序存储在list里，最后反向输出。
+```java
+public ArrayList<Integer> printListFromTailToHead(ListNode listNode) {
+        ArrayList<Integer> newList = new ArrayList<Integer>();
+        Stack<Integer> stack = new Stack<Integer>();
+        while(listNode != null){
+            stack.push(listNode.val);
+            listNode = listNode.next;
+        }
+        
+        while(!stack.empty()){
+            newList.add(stack.peek());
+            stack.pop();
+        }
+        return newList;
+    }
+```
+同时，采用递归，让代码更简洁：
+```java
+public class Solution {
+    ArrayList<Integer> newList = new ArrayList<Integer>();
+    public ArrayList<Integer> printListFromTailToHead(ListNode listNode) {
+        if(listNode != null){
+            printListFromTailToHead(listNode.next);
+            newList.add(listNode.val);
+        }
+        return newList;
+    }
+}
+```
