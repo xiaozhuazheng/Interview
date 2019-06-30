@@ -67,5 +67,31 @@ return new A(){
 * 不能从静态内部类的对象中访问非静态外部类的对象。
 ### 泛型
 ### 枚举
+通常情况下，我们将常量放置在接口中，从JDK1.5开始，引入了枚举的概念。
+```java
+enum  EnumTest{
+        A("s1"),
+        B("s2"),
+        C("s3");
+
+        private String name;
+        //构造方法的修饰符必须为private
+        private EnumTest(String name) {
+            this.name = name;
+        }
+    }
+```
+一个枚举类成员都可以看作是枚举类型的实例，默认被final、public、static修饰。<br/>
+常用方法：
+* values()：将枚举类型成员以数组的形式返回；
+* valusOf():将普通字符串转换成枚举实例；
+* compareTo()：比较两个枚举对象在定义时的顺序；
+* ordinal():返回枚举成员的位置索引。
+
+枚举的优点：
+* 类型安全；
+* 紧凑有效的数据定义；
+* 可以和程序其他部分完美的交互；
+* 运行效率高。
 ### 多线程
 ### 类加载过程
