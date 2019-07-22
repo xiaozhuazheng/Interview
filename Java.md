@@ -96,7 +96,8 @@ enum  EnumTest{
 ### 8、多线程
 ### 9、类加载过程
 ### 10、String、StringBuffer和StringBuilder的区别。
-首先，三者都是用于字符串的操作。先看其结构：
+
+三者都是关于字符串的操作类，先看其结构：
 ```java
 public final class String implements Serializable, Comparable<String>, CharSequence {
     private final char[] value;
@@ -127,3 +128,6 @@ public final class StringBuilder extends AbstractStringBuilder implements Serial
 }
 ```
 可以看到三者都实现Serializable、CharSequence接口，StringBuffer和StringBuilder都继承AbstractStringBuilder类。三者的存储和操作最终底层都是char数组.但是String里面的char数组是final的,而StringBuffer,StringBuilder不是,也就是说,String是不可变的,想要新的字符串只能重新生成String.而StringBuffer和StringBuilder只需要修改底层的char数组就行.相对来说,开销要小很多.而String的大多数方法都是重新new一个新String对象返回,频繁重新生成容易生成很多垃圾.因此，当涉及到字符串修改比较多的情况下尽量用StringBuffer或者StringBuilder。另外值得注意的是，StringBuffer里所有的方法都被synchronized修饰，是线程安全的，而StringBuilder没有，线程不安全。
+
+### 11、ArrayList 与LinkedList Vector的区别
+
