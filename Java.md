@@ -129,5 +129,41 @@ public final class StringBuilder extends AbstractStringBuilder implements Serial
 ```
 可以看到三者都实现Serializable、CharSequence接口，StringBuffer和StringBuilder都继承AbstractStringBuilder类。三者的存储和操作最终底层都是char数组.但是String里面的char数组是final的,而StringBuffer,StringBuilder不是,也就是说,String是不可变的,想要新的字符串只能重新生成String.而StringBuffer和StringBuilder只需要修改底层的char数组就行.相对来说,开销要小很多.而String的大多数方法都是重新new一个新String对象返回,频繁重新生成容易生成很多垃圾.因此，当涉及到字符串修改比较多的情况下尽量用StringBuffer或者StringBuilder。另外值得注意的是，StringBuffer里所有的方法都被synchronized修饰，是线程安全的，而StringBuilder没有，线程不安全。
 
-### 11、ArrayList 与LinkedList Vector的区别
-
+### 11、ArrayList 与LinkedList以及Vector的区别
+ArrayList：
+```java
+public class ArrayList<E> extends AbstractList<E>
+        implements List<E>, RandomAccess, Cloneable, java.io.Serializable
+{
+     transient Object[] elementData;
+     ......
+}
+```
+ArrayList底层是Object数组存储数据。扩容机制:默认大小是10,扩容是扩容到之前的1.5倍的大小,每次扩容都是将原数组的数据复制进新数组中. 一般在知道了需要创建多少个元素,那么尽量用new ArrayList<>(15)这种明确容量的方式创建ArrayList.避免不必要的浪费.添加:如果是添加到数组的指定位置,那么可能会挪动大量的数组元素,并且可能会触发扩容机制;如果是添加到末尾的话,那么只可能触发扩容机制.删除:如果是删除数组指定位置的元素,那么可能会挪动大量的数组元素;如果是删除末尾元素的话,那么代价是最小的. ArrayList里面的删除元素,其实是将该元素置为null.查询和改某个位置的元素是非常快的( O(1) ).<br/><br/>
+Vector:
+```java
+public class Vector<E>
+    extends AbstractList<E>
+    implements List<E>, RandomAccess, Cloneable, java.io.Serializable
+{
+     protected Object[] elementData;
+}
+```
+Vector和ArrayList一样，底层都是Object数组存储数据。功能上基本是一样的，但是Vector得所有方法都被synchronized，是线程安全的，而ArrayList是线程不安全的。<br/><br/>
+LinkedList:
+```java
+public class LinkedList<E>
+    extends AbstractSequentialList<E>
+    implements List<E>, Deque<E>, Cloneable, java.io.Serializable
+{
+    transient int size = 0;
+    
+    transient Node<E> first;
+    
+    transient Node<E> last;
+ }
+```
+底层是双向链表存储数据,并且记录了头节点和尾节点。
+添加元素非常快,如果是添加到头部和尾部的话更快,因为已经记录了头节点和尾节点,只需要链接一下就行了. 如果是添加到链表的中间部分的话,那么多一步操作,需要先找到添加索引处的元素(因为需要链接到这里),才能进行添加.
+遍历的时候,建议采用forEach()进行遍历,这样可以在每次获取下一个元素时都非常轻松(next = next.next;). 然后如果是通过fori和get(i)的方式进行遍历的话,效率是极低的,每次get(i)都需要从最前面(或者最后面)开始往后查找i索引处的元素,效率很低.
+删除也是非常快,只需要改动一下指针就行了,代价很小.
