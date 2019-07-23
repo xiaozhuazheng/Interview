@@ -167,3 +167,62 @@ public class LinkedList<E>
 添加元素非常快,如果是添加到头部和尾部的话更快,因为已经记录了头节点和尾节点,只需要链接一下就行了. 如果是添加到链表的中间部分的话,那么多一步操作,需要先找到添加索引处的元素(因为需要链接到这里),才能进行添加.
 遍历的时候,建议采用forEach()进行遍历,这样可以在每次获取下一个元素时都非常轻松(next = next.next;). 然后如果是通过fori和get(i)的方式进行遍历的话,效率是极低的,每次get(i)都需要从最前面(或者最后面)开始往后查找i索引处的元素,效率很低.
 删除也是非常快,只需要改动一下指针就行了,代价很小.
+
+### 12、java中try catch finally的执行顺序
+* try/catch互斥，当try里抛出异常时进入catch代码块，不管try/catch执行如何，finally代码块都会执行；
+* 在try/catch中return，在finally执行前会把结果保存起来，将finally里代码执行完后再return，即使在finally中有修改也以try/catch中保存的值为准，但如果是引用类型，修改的属性会以finally修改后的为准；<br/>
+eg：
+```java
+public static int demo()
+    {
+         int i = 0;
+            try {
+                i = 2;
+                return i;
+            } finally {
+                i = 12;
+                System.out.println("finally trumps return.");
+            }       
+    }
+    
+    
+//输出结果
+------------------
+    finally trumps return.
+    返回：2
+------------------
+```
+如果是引用类型：
+```java
+public static User test01() {
+        User user = new User("tony");
+        try{
+            System.out.println("try block: " + user.toString());
+            return user;
+        } finally {
+            System.out.println("finally block: " + user.toString());
+            user.name = "jelly";
+        }
+    }
+
+    static class User {
+        String name;
+        User(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return "name:"+ name;
+        }
+    }
+    
+输出：
+--------------------- 
+try block: name:tony 
+finally block: name:tony 
+返回：name:jelly
+---------------------
+```
+* 如果try/catch以及finally都有return，直接返回finally中的return。
+* 编译器把finally中的return实现为一个warning，所以不建议这么做。
