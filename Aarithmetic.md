@@ -86,7 +86,19 @@ public int[] insertSort(int[] a){
 * 前一个月的大兔子对数就是下一个月的小兔子对数。</br>
 * 前一个月的大兔子和小兔子对数的和就是下个月大兔子的对数。
 * 兔子总对数的排列规则为1 1 2 3 5 8 13 21...当前n的值，是n-1、n-2两项之和。
-<pre class="prettyprit lang-java">
+
+通过规律，我们首先想到的是递归方法：</br>
+```java
+public int Fibonacci(int n) {
+    if(n<=1) return n;
+    else return Fibonacci(n-1)+Fibonacci(n-2);
+}
+```
+时间复杂度：O(2^n)</br>
+空间复杂度：O(1)</br>
+采用递归的话，会出现很多重复的运算，造成栈溢出问题，时间复杂度上也不允许,因此换成数组实现：
+
+```java
 public int Fibonacci(int n) {
         if(n==0||n==1){
             return  n;
@@ -100,7 +112,26 @@ public int Fibonacci(int n) {
             return a[n];
         }
     }
-</pre>
+```
+时间复杂度：O(n)</br>
+空间复杂度：O(n)</br>
+这样以来，在时间复杂度上优化了，但是数组比较耗内存呀；但是会发现我们可以通过两个变量就解决问题了：
+
+```java
+public int Fibonacci(int n) {
+        if(n <2){
+            return n;
+        } else{
+            int sum = 1;
+            int one = 0;
+            for(int i = 2;i < n+1;i++){
+                sum += one;
+                one = sum - one;
+            }
+            return sum;
+        }
+    }
+```
 
 ### 数组
 ##### 在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。
@@ -179,6 +210,9 @@ public class Solution {
     }
 }
 ```
+##### 如何知道一个链表里是否有环？
+
+##### 让对两个有序链表进行合并？
 
 ### 字符串
 ##### 请实现一个函数用来找出字符流中第一个只出现一次的字符。例如，当从字符流中只读出前两个字符"go"时，第一个只出现一次的字符是"g"。当从该字符流中读出前六个字符“google"时，第一个只出现一次的字符是"l"。如果当前字符流没有存在出现一次的字符，返回#字符。
