@@ -263,6 +263,7 @@ HashMap<Character, Integer> map=new HashMap();
         return stb.toString();
     }
 ```
+##### 实现一个四则运算
 
 ### 队列
 ##### 用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。
@@ -313,6 +314,7 @@ HashMap<Character, Integer> map=new HashMap();
 ### 图
 
 ### Else
+
 ##### 鸡兔同笼问题(一个笼子里只有鸡和兔子，从上看一共有35个头，从下看一共有94只脚，那么笼子里鸡兔各有多少只？)。
 思路：假如我们让兔子和鸡同时抬起两只脚，那么此时地上的脚是不是就只可能是兔子的，并且此时地上的脚除以2，就是兔子的个数，从而鸡的数量也迎刃而解了！
 <pre class="prettyprit lang-java">
@@ -325,6 +327,5 @@ public void checkenRabbit(int head,int foot){
 }
 </pre>
 
-
-```
-
+##### 洗牌算法
+##### 5L,4L的杯子，怎么得到3L的水
