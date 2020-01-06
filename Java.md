@@ -400,7 +400,7 @@ double:指数11位，指数范围为-2^11-2^11,所以float的取值范围为-2^2
 浮点数内部的存储参考：https://wenku.baidu.com/view/90fad770376baf1ffc4fad7b.html
 
 ### 14、反射
-https://mp.weixin.qq.com/s?__biz=MzA5MzI3NjE2MA==&mid=2650242963&idx=1&sn=708e4fa01823b7844494ecb276a3733f&chksm=88638efcbf1407eaf0b5438f824a42a1890ab6a623108990cbbc1d424594ee08e9ff973ff70f&scene=38#wechat_redirect
+[java反射详解](https://mp.weixin.qq.com/s?__biz=MzA5MzI3NjE2MA==&mid=2650242963&idx=1&sn=708e4fa01823b7844494ecb276a3733f&chksm=88638efcbf1407eaf0b5438f824a42a1890ab6a623108990cbbc1d424594ee08e9ff973ff70f&scene=38#wechat_redirect)
 
 ### 14、锁机制
 ### 15、原子性
