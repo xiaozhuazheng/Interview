@@ -328,4 +328,18 @@ public void checkenRabbit(int head,int foot){
 </pre>
 
 ##### 洗牌算法
+思路：将54四张牌抽象成[0，53]的数字，放在一个数组里，那么问题就变成了如何将数组随机排列了。既然是随机，那当然就要用到随机函数了。将数组的前n个数进行随机，得到一个随机数对应在数组中的某位置的值，然后将这一位置的值与第n位置进行互换，依次这样进行，最后就会得到一个随机数组。
+```java
+private static int[] poker(int[] a){
+        Random random = new Random();
+        for (int i = a.length - 1; i > 0; i--) {
+            int j = random.nextInt(i);
+            int temp = a[j];
+            a[j] = a[i];
+            a[i] = temp; 
+        }
+        return a;
+    }
+```
+
 ##### 5L,4L的杯子，怎么得到3L的水
