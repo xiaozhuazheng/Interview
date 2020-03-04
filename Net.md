@@ -152,4 +152,5 @@ Cookie是这样工作的。当用户张三访问某网站服务器时，服务�
 对称加密：DES、3DES、AES；<br/>
 非对称加密：RSA，生成公钥/私钥密码对；<br/>
 关于https,以及SSL证书在Http中的使用：<br/>
-https://mp.weixin.qq.com/s/StqqafHePlBkWAPQZg3NrA
+https://mp.weixin.qq.com/s/StqqafHePlBkWAPQZg3NrA <br/>
+https://mp.weixin.qq.com/s/DGIkZT26CBafJzpQgrqqdQ
