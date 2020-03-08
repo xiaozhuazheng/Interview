@@ -230,8 +230,36 @@ public class Solution {
 }
 ```
 ##### 如何知道一个链表里是否有环？
+快慢指针：采用两个指针，同时从head触发，p指针每次前进一步，q指针每次前进两步，如果纯在环路，那么两者在某一时刻一定会相遇。
+```java
+public boolean hasRing(Node head){
+        Node p = head;
+        Node q = head;
+        
+        while (p != null && q != null) {            
+            p = p.next;
+            q = q.next;
+            
+            if (q.next != null) {
+                q = q.next;
+            }
+            
+            if (p != null && p == q) {
+                return true;
+            }
+            
+        }
+        return false;
+    }
+    
+    public class Node{
+        int value;
+        Node next;
+    }
+    
+```
 
-##### 让对两个有序链表进行合并？
+##### 对两个有序链表进行合并？
 
 ### 字符串
 ##### 请实现一个函数用来找出字符流中第一个只出现一次的字符。例如，当从字符流中只读出前两个字符"go"时，第一个只出现一次的字符是"g"。当从该字符流中读出前六个字符“google"时，第一个只出现一次的字符是"l"。如果当前字符流没有存在出现一次的字符，返回#字符。
