@@ -260,6 +260,33 @@ public boolean hasRing(Node head){
 ```
 
 ##### 对两个有序链表进行合并？
+```java
+ public ListNode Merge(ListNode list1,ListNode list2) {
+        //新建一个头节点，用来存合并的链表。
+        ListNode head=new ListNode(-1);
+        head.next=null;
+        ListNode root=head;
+        while(list1!=null&&list2!=null){
+            if(list1.val<list2.val){
+                head.next=list1;
+                head=list1;
+                list1=list1.next;
+            }else{
+                head.next=list2;
+                head=list2;
+                list2=list2.next;
+            }
+        }
+        //把未结束的链表连接到合并后的链表尾部
+        if(list1!=null){
+            head.next=list1;
+        }
+        if(list2!=null){
+            head.next=list2;
+        }
+        return root.next;
+    }
+```
 
 ### 字符串
 ##### 请实现一个函数用来找出字符流中第一个只出现一次的字符。例如，当从字符流中只读出前两个字符"go"时，第一个只出现一次的字符是"g"。当从该字符流中读出前六个字符“google"时，第一个只出现一次的字符是"l"。如果当前字符流没有存在出现一次的字符，返回#字符。
