@@ -288,6 +288,27 @@ public boolean hasRing(Node head){
     }
 ```
 
+##### 输入一个链表，反转链表后，输出新链表的表头。
+采用两个指针，一个指向当前head，一个指向head前一个数据。然后不断的将两个指针同时向后移动，直到最后一位。
+```java
+public ListNode ReverseList(ListNode head){
+        if(head == null){
+            return null;
+        }
+        
+        ListNode pre;
+        ListNode current = head;
+        while(current != null){
+            ListNode temp = current.next;
+            current.next = pre;
+            pre = current;
+            current = temp;
+        }
+        return current；
+       
+    }
+```
+
 ### 字符串
 ##### 请实现一个函数用来找出字符流中第一个只出现一次的字符。例如，当从字符流中只读出前两个字符"go"时，第一个只出现一次的字符是"g"。当从该字符流中读出前六个字符“google"时，第一个只出现一次的字符是"l"。如果当前字符流没有存在出现一次的字符，返回#字符。
 ```java
