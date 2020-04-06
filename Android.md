@@ -3,3 +3,7 @@
 ### 1、intent机制，传递数据大小限制
 
 ### 2、ListView与RecycleView源码，RecycleView可以取代ListView吗？
+
+### 3、如何加载一张尺寸很大的图？
+
+### 4、Sqlite如何优化
