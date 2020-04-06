@@ -432,6 +432,48 @@ Synchronize是最基本的同步互斥手段，Synchronized关键字在编译后
 Java的线程是映射到操作系统的原生系统上的，阻塞或者唤醒一个线程，都需要操作系统来完成，也就是说得从用户态切换到核心态，状态转换需要耗费很多的处理器时间，因此Synchronize是一个重量级的同步方式。<br/>
 随着技术的发展，JVM对Synchronize进行了大刀阔斧的优化，大大提升了其性能，特别是锁的升级、降级，即虚拟机在争对不同的竞争状态时，会自由切换合适的锁实现。当没有竞争时，默认会使用偏斜锁，Jvm会利用CAS操作，在对象头的mark word部分设置线程ID，以表示这个对象偏向于当前线程，所以并不涉及到真正的互斥锁。这样做的假设是基于很多情况下，一个对象的生命周期中只被一个线程锁定，使用偏斜锁可以降低竞争消耗；如果存在某个线程需要获取已经被偏斜的对象，虚拟机就会撤销偏斜锁，并切换到轻量级锁实现。同样的，轻量级锁依赖CAS操作Mark Word来试图获取锁，如果重试成功，那么就使用普通的轻量级锁，否则进一步升级为重量级锁。
 
-### 15、判断对象相等
-### 16、jvm子类怎么找到父类的方法
+### 15、写一个死锁
+```java
+ public static void testLock() {
+        String A = "a";
+        String B = "b";
+        
+        Thread t1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                synchronized(A){
+                    try {
+                        Thread.currentThread().sleep(2000);
+                        
+                        synchronized(B){
+                            System.out.println("T1.run()");
+                        }
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(JavaApplication1.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                }
+            }
+        });
+        
+        Thread t2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                synchronized(B){
+                    
+                    synchronized(A){
+                            System.out.println("T2.run()");
+                    }
+                }
+            }
+        });
+        
+        t1.start();
+        t2.start();
+    }
+```
+ 
+ ### 16、synchronized以及lock的实现原理
+ ### 17、java异常处理
+ ### 18、java是值传递还是引用传递？
 
