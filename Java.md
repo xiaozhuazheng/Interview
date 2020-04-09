@@ -472,6 +472,74 @@ Java的线程是映射到操作系统的原生系统上的，阻塞或者唤醒�
         t2.start();
     }
 ```
+ ### 16、synchronized关键字实现两个线程交替打印奇偶数
+ ```java
+ class myInt{
+        int v = 0;
+        public int getV(){
+            return v;
+        }
+        public void setV(){
+            v ++;
+        }
+   }
+   
+   //偶数线程
+   static class OneThread extends Thread{
+        myInt tag;
+        public OneThread(myInt tag,String name){
+            this.tag = tag;
+            this.setName(name);
+        }
+        
+        @Override
+        public void run() {
+            synchronized(tag){
+                while(tag.getV() < 100){
+                      if(tag.getV() % 2 == 0){
+                           System.out.println(Thread.currentThread().getName() + "------" + tag.getV());
+                           tag.setV();
+                           tag.notify();
+                        } else{
+                            tag.wait();
+                        }
+                        
+                    }
+            }
+        }
+    }
+    //奇数线程
+    static class TwoThread extends Thread{
+        myInt tag;
+        public TwoThread(myInt tag,String name){
+            this.tag = tag;
+            this.setName(name);
+        }
+        
+        @Override
+        public void run() {
+            synchronized(tag){
+                while(tag.getV() < 100){
+                      if(tag.getV() % 2 != 0){
+                           System.out.println(Thread.currentThread().getName() + "------" + tag.getV());
+                           tag.setV();
+                           tag.notify();
+                        } else{
+                            tag.wait();
+                        }
+                        
+                    }
+            }
+        }
+    }
+    
+    myInt my = new myInt();
+    OneThread t1 = new OneThread(my,"偶数");
+    TwoThread t2 = new TwoThread(my,"奇数");
+    t1.start();
+    t2.start();
+ ```
+ 
  
  ### 16、synchronized以及lock的实现原理
  ### 17、java异常处理
