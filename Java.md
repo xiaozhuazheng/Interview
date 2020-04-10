@@ -542,6 +542,13 @@ Java的线程是映射到操作系统的原生系统上的，阻塞或者唤醒�
  
  
  ### 16、synchronized以及lock的实现原理
+ synchronized：<br/>
+ * synchronized修饰普通同步方法，锁是当前实例对象，修饰静态方法，锁是当前类的class对象，修饰方法块时，锁是Synchonized括号里配置的对象；
+ * synchronized关键字不能修饰int、double等基本数据类型；
+ * synchronized关键字最好不要修饰String、Integer等基本数据对象类型，因为如果基本数据对象类型的值发生改变的话，原先加的锁可能会丢失；
+ * synchronized关键字修饰对象时，如果对象的属性值发生改变（对象本身发生改变例外）不会影响锁的稳定；
  ### 17、java异常处理
+ 
  ### 18、java是值传递还是引用传递？
+ https://www.zhihu.com/question/31203609
 
