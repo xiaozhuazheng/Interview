@@ -548,11 +548,12 @@ Java的线程是映射到操作系统的原生系统上的，阻塞或者唤醒�
  * synchronized关键字最好不要修饰String、Integer等基本数据对象类型，因为如果基本数据对象类型的值发生改变的话，原先加的锁可能会丢失；
  * synchronized关键字修饰对象时，如果对象的属性值发生改变（对象本身发生改变例外）不会影响锁的稳定；
  ### 17、java异常处理
- 关系图：
+ 关系图：<br/>
 ![avatar](/image/error.png)<br/>
 Exception 和 Error 都是继承了 Throwable 类，在 Java 中只有 Throwable类型的实例才可以被抛出（throw）或者捕获（catch），它是异常处理机制的基本组成类型。<br/>
 * Error 是指在正常情况下，不大可能出现的情况，java 运行时系统的内部错误和资源耗尽错误,绝大部分的 Error 都会导致程序（比如 JVM 自身）处于非正常的、不可恢复状态。既然是非正常情况，所以不便于也不需要捕获，常见的比如 OutOfMemoryError 、StackOverflowError之类，都是 Error的子类。
 * Exception 是程序正常运行中，可以预料的意外情况，可能并且应该被捕获，进行相应处理。Exception 又分为可检查（checked）异常和不检查（unchecked）异常，可检查异常在源代码里必须显式地进行捕获处理，比如IOException、InterruptedException等这是编译期检查的一部分。不检查异常就是所谓的运行时异常，类似 NullPointerException、ClassCastException之类，通常是可以编码避免的逻辑错误，具体根据需要来判断是否需要捕获，并不会在编译期强制要求。<br/>
+
 在代码中，通常采用try-catch-finally来捕捉异常，throw字段抛出异常，throws字段来定义我们编写的方法在被调用时抛出何种类型的异常。值得注意的是，try-catch 代码段会产生额外的性能开销，或者换个角度说，它往往会影响 JVM 对代码进行优化，所以建议仅捕获有必要的代码段，尽量不要一个大的 try 包住整段的代码；与此同时，利用异常控制代码流程，也不是一个好主意，远比我们通常意义上的条件语句（if/else、switch）要低效。
  
  ### 18、java是值传递还是引用传递？
