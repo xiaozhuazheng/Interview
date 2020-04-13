@@ -180,6 +180,7 @@ HTTP每次请求都要建立一个连接同时请求结束后会断开连接，�
 与强制缓存不同，对比缓存通过服务器来决定是否需要缓存，有两种方式：</br>
 * Last-Modified/If-Modified-Since：Last-Modified，客户端在进行第一次请求的时候服务器会返回一个头字段名称为Last-Modified的日期代表服务器对该资源最后修改时间，客户端需要对该日期进行保存；If-Modified-Since，客户端在之后的请求中会在请求头中加入头字段If-Modified-Since，其内容为服务器返回的Last-Modified，服务器收到后会判断缓存是否有效，如果有效返回304告诉客户端从自己本地缓存读取数据，否则返回200并携带新的响应体同时更新Last-Modified，客户端收到响应后重新保存Last-Modified和数据。
 * Etag/If-None-Match：tag是资源的一个标识，当资源修改后Etag值会改变，Etag是由服务器生成，Etag/If-None-Match判断过程和Last-Modified/If-Modified-Since基本一致，唯一区别是缓存有效即服务器返回304时前者会在响应头中加入Etag，而后者不会再响应头中加入Last-Modified。</br>
+
 一般来说对比缓存要配合强制缓存使用，Expires和Cache-Control优先级最高，其次是Etag/If-None-Match，最后是Last-Modified/If-Modified-Since：</br>
 ![avatar](/image/net_crash.png)  </br>
 ### 8、TCP如何控制流量
