@@ -432,7 +432,7 @@ Volatile不能保证原子性，那么什么情况下会采用呢：<br/>
 
 参考：[什么是volatile关键字?](https://mp.weixin.qq.com/s?__biz=MzIxMjE5MTE1Nw==&mid=2653192450&idx=2&sn=ad95717051c0c4af83923b736a5bc637&chksm=8c99f3d8bbee7aceb123e4f6aa9a220630b5aa17743ba812d82308bfb6a8ed8303bdd181f144&scene=21#wechat_redirect)
 
-### 14、Synchronized
+### 16、Synchronized
 Synchronize是java中重量级的锁机制，可以修饰方法、代码块来实现同步机制：<br/>
 #### 实现原理
 Java对象头：JVM中用两个字节来存储对象头，主要为Mark Word 结构，包含了锁标记、hashcode、分代年龄以及GC信息。<br/>
@@ -452,9 +452,10 @@ Monitor(监视器锁)：当对象头中的锁标记被标记后，其指针指�
  * synchronized关键字最好不要修饰String、Integer等基本数据对象类型，因为如果基本数据对象类型的值发生改变的话，原先加的锁可能会丢失；
  * synchronized关键字修饰对象时，如果对象的属性值发生改变（对象本身发生改变例外）不会影响锁的稳定；
  
- ### 15、java中的lock
+### 17、原子操作循环CAS
+### 18、java中的lock
 
-### 16、写一个死锁
+### 19、写一个死锁
 ```java
  public static void testLock() {
         String A = "a";
@@ -494,7 +495,7 @@ Monitor(监视器锁)：当对象头中的锁标记被标记后，其指针指�
         t2.start();
     }
 ```
- ### 16、synchronized关键字实现两个线程交替打印奇偶数
+ ### 20、synchronized关键字实现两个线程交替打印奇偶数
  ```java
  class myInt{
         int v = 0;
@@ -562,7 +563,7 @@ Monitor(监视器锁)：当对象头中的锁标记被标记后，其指针指�
     t2.start();
  ```
  
- ### 17、java异常处理
+ ### 21、java异常处理
  关系图：<br/>
 ![avatar](/image/error.png)<br/>
 Exception 和 Error 都是继承了 Throwable 类，在 Java 中只有 Throwable类型的实例才可以被抛出（throw）或者捕获（catch），它是异常处理机制的基本组成类型。<br/>
@@ -571,6 +572,6 @@ Exception 和 Error 都是继承了 Throwable 类，在 Java 中只有 Throwable
 
 在代码中，通常采用try-catch-finally来捕捉异常，throw字段抛出异常，throws字段来定义我们编写的方法在被调用时抛出何种类型的异常。值得注意的是，try-catch 代码段会产生额外的性能开销，或者换个角度说，它往往会影响 JVM 对代码进行优化，所以建议仅捕获有必要的代码段，尽量不要一个大的 try 包住整段的代码；与此同时，利用异常控制代码流程，也不是一个好主意，远比我们通常意义上的条件语句（if/else、switch）要低效。
  
- ### 18、java是值传递还是引用传递？
+ ### 22、java是值传递还是引用传递？
  https://www.zhihu.com/question/31203609
 
