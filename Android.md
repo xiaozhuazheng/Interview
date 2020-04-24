@@ -16,3 +16,6 @@ https://mp.weixin.qq.com/s/6tAHfoBRx8ZhEZjpNXLUmA
 * loadFactor：负载因子，默认为0.75，在HashMap的构造函数中设定；
 * length：HashMap当前哈希桶的长度；
 * threshold：阈值，当HashMap的键值对总数超过该阈值时，threshold = length * loadFactor，则开启扩容机制，将桶的长度为当前的两倍，并将已存在的数据重新计算位置； 
+
+### 6、UI线程的looper一直在无限循环，为什么不ANR？
+
