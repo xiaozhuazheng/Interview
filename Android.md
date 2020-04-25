@@ -24,3 +24,21 @@ https://mp.weixin.qq.com/s/6tAHfoBRx8ZhEZjpNXLUmA
 * 对于一个线程来说，执行完操作后就结束线程，但对于主线程来说，需要随时处理消息，因此不能销毁线程，需要一直保存running状态，怎么办呢，那就是通过Looper的死循环。那么，主线程的死循环一直运行是不是特别消耗CPU资源呢？ 其实不然，这里就涉及到Linux pipe/epoll机制，简单说就是在主线程的MessageQueue没有消息时，便阻塞在loop的queue.next()中的nativePollOnce()方法里，此时主线程会释放CPU资源进入休眠状态，直到下个消息到达或者有事务发生，通过往pipe管道写端写入数据来唤醒主线程工作。这里采用的epoll机制，是一种IO多路复用机制，可以同时监控多个描述符，当某个描述符就绪(读或写就绪)，则立刻通知相应程序进行读或写操作，本质同步I/O，即读写是阻塞的。 所以说，主线程大多数时候都是处于休眠状态，并不会消耗大量CPU资源。
 
 ### 7、关于Handler值得注意的地方？
+* post的用法：当使用Handler.post(Runnable r)方法时，传入的参数是一个Runnable对象，Runnable只是一个有着run()方法的接口，便不是一个线程。Handler会通过getPostMessage(Runnable r) 去返回一个Message对象，而将Runnable存储在Message对象的callback属性。Message消息存储进消息队列，当Looper.loop()取出消息，交给handler.dispatchMessage(msg):
+```java
+public void dispatchMessage(Message msg) {
+        if (msg.callback != null) {
+            handleCallback(msg);
+        } else {
+            if (mCallback != null) {
+                if (mCallback.handleMessage(msg)) {
+                    return;
+                }
+            }
+            handleMessage(msg);
+        }
+    }
+```
+从上面的代码可以看到，会通过handleCallback(msg)来处理msg.callback不为空，也就是通过handler.post发送的Runnable，在handleCallback(msg)方法中会通过message.callback.run()来执行Runnable的run()。
+* 如何实现延迟消息：不管Handler怎么发送消息，最终都会调用到MessageQueue.enqueueMessage(Message msg, long when)来进行消息入队列，所谓的消息队列并不是队列结构，而是单链表结构。当当前队列为空或者需要入队的Message的延迟时间when比头节点的when小时，则将msg插入头节点，否则，按时间将消息进行排序。所谓消息延迟，并不是延迟去发送消息，而是延迟的去处理，不管是延迟消息还是普通消息，都会第一时间被放到消息队列里。</br>
+消息处理在底层是通过epoll实现：Looper.loop()不断的调用MessageQueue.next()方法取出消息，在next()方法中，有一个很重要的底层方法nativePollOnce(ptr, nextPollTimeoutMillis)，nativePollOnce方法会一直阻塞，参数ptr就是底层消息队列NativeMessageQueue的指针，nextPollTimeoutMillis表示nativePollOnce的超时时间。当消息队列为空时，nextPollTimeoutMillis = -1，当取出的msg的when，即延时时间大于0时，nextPollTimeoutMillis = msg.when - now，其中now是当前时间，这两种情况都会使epoll进入休眠，释放CPU资源。当nextPollTimeoutMillis = 0时，epoll就会被唤醒，从管道读取事件放入事件集合，这是MessageQueue.next()返回一个Message对象交给Looper.loop()，交给Handler.dispatchMessage()去处理。
