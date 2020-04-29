@@ -7,7 +7,27 @@ https://mp.weixin.qq.com/s/6tAHfoBRx8ZhEZjpNXLUmA
 ### 2、ListView与RecycleView源码，RecycleView可以取代ListView吗？
 
 ### 3、如何加载一张尺寸很大的图？
-
+* 图片压缩：不管我们从网络或者res等途径获取到图片资源，最终都会转换成bitmap来使用。通过BitmapFactory.Options可以设定inSampleSize的值，inSampleSize表示压缩值，实际的处理中，根据ImageView的宽高来计算inSampleSize的值。
+```java
+        mIvBigPic = findViewById(R.id.iv_big_pic);
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true; // 当前只为获取图片的边界大小
+        BitmapFactory.decodeResource(getResources(), R.drawable.bigpic, options);
+        int outHeight = options.outHeight; //图片的高
+        int outWidth = options.outWidth; //图片的宽
+        String outMimeType = options.outMimeType; //获取图片类型
+        options.inJustDecodeBounds = false;
+        options.inSampleSize = caculateSampleSize(options, viewWidth, viewHeight);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bigpic, options);
+        mIvBigPic.setImageBitmap(bitmap);
+```
+* 局部展示：BitmapRegionDecoder可以只显示bitmap的一部分，以一个矩形区间Rect来显示。开发者通过自定义view来加载图片，再监听触摸事件来控制图片的滑动显示。
+```java
+        BitmapRegionDecoder regionDecoder = BitmapRegionDecoder.newInstance(inputStream, false);
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        Bitmap bitmap = regionDecoder.decodeRegion(new Rect(0, 0, getScreenWidth(), getScreenHeight()), options);
+        mIvBigPic.setImageBitmap(bitmap);
+```
 ### 4、Sqlite如何优化
 
 ### 5、HashMap
