@@ -384,6 +384,19 @@ HashMap<Character, Integer> map=new HashMap();
         return stb.toString();
     }
 ```
+
+##### 字符串反转（采用双指针）
+```java
+public void reverseString(char[] s) {
+        int len = s.length;
+        for (int left = 0,right = len -1 ;left <= right;++left,--right){
+            char temp = s[left];
+            s[left] = s[right];
+            s[right] = temp;
+        }
+    }
+```
+
 ##### 实现一个四则运算
 
 ### 队列
