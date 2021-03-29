@@ -538,70 +538,26 @@ CAS实现原子操作的三大问题：<br/>
 ```
  ### 22、synchronized关键字实现两个线程交替打印奇偶数
  ```java
- class myInt{
-        int v = 0;
-        public int getV(){
-            return v;
-        }
-        public void setV(){
-            v ++;
-        }
-   }
-   
-   //偶数线程
-   static class OneThread extends Thread{
-        myInt tag;
-        public OneThread(myInt tag,String name){
-            this.tag = tag;
-            this.setName(name);
-        }
-        
+ static class NumberTask implements Runnable{
+        static int value = 0;
         @Override
         public void run() {
-            synchronized(tag){
-                while(tag.getV() < 100){
-                      if(tag.getV() % 2 == 0){
-                           System.out.println(Thread.currentThread().getName() + "------" + tag.getV());
-                           tag.setV();
-                           tag.notify();
-                        } else{
-                            tag.wait();
-                        }
-                        
+            synchronized (NumberTask.class){
+                while (value < 100){
+                    System.out.println("thread:" + Thread.currentThread().getName() + "value:" + ++value);
+                    NumberTask.class.notify();
+                    try {
+                        NumberTask.class.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-            }
-        }
-    }
-    //奇数线程
-    static class TwoThread extends Thread{
-        myInt tag;
-        public TwoThread(myInt tag,String name){
-            this.tag = tag;
-            this.setName(name);
-        }
-        
-        @Override
-        public void run() {
-            synchronized(tag){
-                while(tag.getV() < 100){
-                      if(tag.getV() % 2 != 0){
-                           System.out.println(Thread.currentThread().getName() + "------" + tag.getV());
-                           tag.setV();
-                           tag.notify();
-                        } else{
-                            tag.wait();
-                        }
-                        
-                    }
+                }
             }
         }
     }
     
-    myInt my = new myInt();
-    OneThread t1 = new OneThread(my,"偶数");
-    TwoThread t2 = new TwoThread(my,"奇数");
-    t1.start();
-    t2.start();
+    new Thread(new NumberTask(),"奇数").start();
+    new Thread(new NumberTask(),"偶数").start();
  ```
  
  ### 23、java异常处理
