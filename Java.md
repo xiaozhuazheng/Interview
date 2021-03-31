@@ -1,10 +1,8 @@
 ## 记录java相关！
-- [public、privite、protected修饰符](#public、privite、protected修饰符)
+- [public、privite、protected修饰符](#public-privite-protected修饰符)
 - [final修饰符](#final修饰符)
 - [static修饰符](#static修饰符)
-- [final修饰符](#final修饰符)
-- [static修饰符](#static修饰符)
-- [封装、继承、多态](#封装、继承、多态)
+- [封装、继承、多态](#封装继承多态)
 - [内部类](#内部类)
 - [泛型](#泛型)
 - [枚举](#枚举)
@@ -12,7 +10,7 @@
 - [类加载过程](#类加载过程)
 - [多线程](#多线程)
 - [String、StringBuffer和StringBuilder的区别](#String、StringBuffer和StringBuilder的区别)
-- [java中try catch finally的执行顺序](#java中try catch finally的执行顺序)
+- [java中try catch finally的执行顺序](#java中try-catch-finally的执行顺序)
 - [java中八大基本类型](#java中八大基本类型)
 - [反射](#反射)
 - [关于线程](#关于线程)
@@ -21,11 +19,11 @@
 - [原子操作](#原子操作)
 - [写一个死锁](#写一个死锁)
 - [synchronized关键字实现两个线程交替打印奇偶数](#synchronized关键字实现两个线程交替打印奇偶数)
-- [lock三个线程，依次交替打印1到100](#lock三个线程，依次交替打印1到100)
+- [lock三个线程依次交替打印1到100](#lock三个线程依次交替打印1到100)
 - [java异常处理](#java异常处理)
 - [java是值传递还是引用传递](#java是值传递还是引用传递)
 
-### public、privite、protected修饰符
+### public-privite-protected修饰符
 在java中，public、privite、protected三种修饰符用来修饰类以及类的成员变量和方法。</br>
 修饰类的成员变量以及方法时：privite，变量和方法只能在类中可见，对子类以及其他包中的类是不可见的，方法不可见，那么子类也无法对父类中privite修饰的方法进行重写。public，对子类以及其他包里的类都可见。protected，子类以及同一个包中的类均可访问(当一个类被public修饰，其方法A被protected修饰，那么该方法只允许同一包中的类或者其他包的子类访问)。可以这么理解，只要方法和变量不是private修饰，那么就对其子类可见。</br>
 修饰类时：privite修饰类，那么类中的所有数据(变量，方法)都将被隐藏，一般没有太大意义，因为我们定义一个类，就是用来创建对象并调用的，弄成隐藏，还有什么意义（除了内部类，一般的类也不允许这么修饰）。public修饰类，该类对所有类可见。protected修饰类，该类只能对同包中的类可见。
@@ -50,7 +48,7 @@ final字段可修饰类、方法以及变量。
 * 静态方法不可以直接调用非静态方法；
 * 方法中的局部变量不能声明为static，即使是静态方法也不行。
 
-### 封装、继承、多态
+### 封装继承多态
 java是一种面向对象的语言，在它的眼里，万物皆对象。而面向对象的三大特点，就是封装、继承、多态。<br/>
 封装：面向对象编程的核心思想，将对象的属性和行为封装起来，其载体为类，只为外部提供相关调用，而隐藏具体的实现细节。<br/>
 
@@ -587,7 +585,7 @@ CAS实现原子操作的三大问题：<br/>
     new Thread(new NumberTask(),"偶数").start();
  ```
  
- ### lock三个线程，依次交替打印1到100
+ ### lock三个线程依次交替打印1到100
  
  ```java
  static class LockThread extends Thread{
