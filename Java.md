@@ -494,9 +494,8 @@ CAS实现原子操作的三大问题：<br/>
 * 只能保证一个共享变量的原子操作。当对一个共享变量执行操作时，我们可以使用循环CAS的方式来保证原子操作，但是对多个共享变量操作时，循环CAS就无法保证操作的原子性，这个时候就可以用锁。<br/>
 
 有意思的是除了偏向锁，JVM实现锁的方式都用了循环CAS，即当一个线程想进入同步块的时候使用循环CAS的方式来获取锁，当它退出同步块的时候使用循环CAS释放锁。
-### 20、java中的lock
 
-### 21、写一个死锁
+### 20、写一个死锁
 ```java
  public static void testLock() {
         String A = "a";
@@ -536,7 +535,7 @@ CAS实现原子操作的三大问题：<br/>
         t2.start();
     }
 ```
- ### 22、synchronized关键字实现两个线程交替打印奇偶数
+ ### 21、synchronized关键字实现两个线程交替打印奇偶数
  ```java
  static class NumberTask implements Runnable{
         static int value = 0;
@@ -558,6 +557,39 @@ CAS实现原子操作的三大问题：<br/>
     
     new Thread(new NumberTask(),"奇数").start();
     new Thread(new NumberTask(),"偶数").start();
+ ```
+ 
+ ### 22、java中的lock
+ 三个线程，依次交替打印1到100
+ ```java
+ static class LockThread extends Thread{
+        static Lock lock = new ReentrantLock();
+
+        int count;
+        int id;
+        int maxV;
+        static int value = 0;
+        public LockThread(int id,int count,int maxV){
+            this.id = id;
+            this.count = count;
+            this.maxV = maxV;
+        }
+        @Override
+        public void run() {
+            while (value <= maxV){
+                if (value % count == id){
+                    if (lock.tryLock()){
+                        System.out.println("thread:" + id + " value:" + value++);
+                        lock.unlock();
+                    }
+                }
+            }
+        }
+    }
+    
+    for (int i =0;i < 3;i++){
+            new LockThread(i,3,100).start();
+    }
  ```
  
  ### 23、java异常处理
