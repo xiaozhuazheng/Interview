@@ -1,5 +1,5 @@
 ## 记录java相关！
-- [public、privite、protected修饰符](#public-privite-protected修饰符)
+- [public、privite、protected修饰符](#public privite protected修饰符)
 - [final修饰符](#final修饰符)
 - [static修饰符](#static修饰符)
 - [封装、继承、多态](#封装继承多态)
@@ -9,8 +9,9 @@
 - [多线程](#多线程)
 - [类加载过程](#类加载过程)
 - [多线程](#多线程)
-- [String、StringBuffer和StringBuilder的区别](#String、StringBuffer和StringBuilder的区别)
-- [java中try catch finally的执行顺序](#java中try-catch-finally的执行顺序)
+- [String、StringBuffer和StringBuilder的区别](#String StringBuffer StringBuilder的区别)
+- [ArrayList LinkedList以及Vector的区别](#ArrayList LinkedList以及Vector的区别)
+- [java中try catch finally的执行顺序](#java中try catch finally的执行顺序)
 - [java中八大基本类型](#java中八大基本类型)
 - [反射](#反射)
 - [关于线程](#关于线程)
@@ -23,7 +24,7 @@
 - [java异常处理](#java异常处理)
 - [java是值传递还是引用传递](#java是值传递还是引用传递)
 
-### public-privite-protected修饰符
+### public privite protected修饰符
 在java中，public、privite、protected三种修饰符用来修饰类以及类的成员变量和方法。</br>
 修饰类的成员变量以及方法时：privite，变量和方法只能在类中可见，对子类以及其他包中的类是不可见的，方法不可见，那么子类也无法对父类中privite修饰的方法进行重写。public，对子类以及其他包里的类都可见。protected，子类以及同一个包中的类均可访问(当一个类被public修饰，其方法A被protected修饰，那么该方法只允许同一包中的类或者其他包的子类访问)。可以这么理解，只要方法和变量不是private修饰，那么就对其子类可见。</br>
 修饰类时：privite修饰类，那么类中的所有数据(变量，方法)都将被隐藏，一般没有太大意义，因为我们定义一个类，就是用来创建对象并调用的，弄成隐藏，还有什么意义（除了内部类，一般的类也不允许这么修饰）。public修饰类，该类对所有类可见。protected修饰类，该类只能对同包中的类可见。
@@ -260,7 +261,7 @@ java 内存模型：<br/>
 双亲委派模型：如果一个类加载器收到了类的加载请求，它不会马上去尝试加载这个类，而是委派给它的父类加载器去完成，每一层的类加载器都是如此，因此所有的类加载请求最终都会委派到启动类加载器。只有当父类加载器表示无法加载该类时，子类加载器才会自己去加载。<br/>
 使用双亲委派模型来组织类加载器之间的关系，保证了java类随着类加载器的层级关系，也具有了优先级的层级关系。比如我们的Object类，无论哪一个类加载器要加载该类，最终都会委派到启动类加载器，最终保证Object类在所有类加载环境中的唯一性。
 
-### String、StringBuffer和StringBuilder的区别
+### String StringBuffer StringBuilder的区别
 
 三者都是关于字符串的操作类，先看其结构：
 ```java
@@ -294,7 +295,7 @@ public final class StringBuilder extends AbstractStringBuilder implements Serial
 ```
 可以看到三者都实现Serializable、CharSequence接口，StringBuffer和StringBuilder都继承AbstractStringBuilder类。三者的存储和操作最终底层都是char数组.但是String里面的char数组是final的,而StringBuffer,StringBuilder不是,也就是说,String是不可变的,想要新的字符串只能重新生成String.而StringBuffer和StringBuilder只需要修改底层的char数组就行.相对来说,开销要小很多.而String的大多数方法都是重新new一个新String对象返回,频繁重新生成容易生成很多垃圾.因此，当涉及到字符串修改比较多的情况下尽量用StringBuffer或者StringBuilder。另外值得注意的是，StringBuffer里所有的方法都被synchronized修饰，是线程安全的，而StringBuilder没有，线程不安全。
 
-### 11、ArrayList 与LinkedList以及Vector的区别
+### ArrayList LinkedList以及Vector的区别
 ArrayList：
 ```java
 public class ArrayList<E> extends AbstractList<E>
