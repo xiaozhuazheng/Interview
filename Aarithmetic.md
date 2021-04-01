@@ -235,6 +235,22 @@ public void merge(int[] nums1, int m, int[] nums2, int n) {
     }
 ```
 
+##### 4、给你一个有序数组 nums ，请你 原地 删除重复出现的元素，使每个元素 只出现一次 ，返回删除后数组的新长度。
+思路：快慢指针！
+```java
+public int removeDuplicates(int[] nums) {
+        int left = 0;
+        int right = left + 1;
+        while (right < nums.length){
+            if (nums[left] != nums[right]){
+                nums[++left] = nums[right];
+            }
+            right++;
+        }
+        return ++left;
+    }
+```
+
 ### 链表
 ##### 输入一个链表，按链表值从尾到头的顺序返回一个ArrayList。
 一种比较基础的办法，利用栈‘先进后出’的特性，当然也可以先按顺序存储在list里，最后反向输出。
