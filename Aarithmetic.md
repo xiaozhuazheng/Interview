@@ -252,7 +252,7 @@ public int removeDuplicates(int[] nums) {
 ```
 
 ### 链表
-##### 输入一个链表，按链表值从尾到头的顺序返回一个ArrayList。
+##### 1、输入一个链表，按链表值从尾到头的顺序返回一个ArrayList。
 一种比较基础的办法，利用栈‘先进后出’的特性，当然也可以先按顺序存储在list里，最后反向输出。
 ```java
 public ArrayList<Integer> printListFromTailToHead(ListNode listNode) {
@@ -283,7 +283,7 @@ public class Solution {
     }
 }
 ```
-##### 如何知道一个链表里是否有环？
+##### 2、如何知道一个链表里是否有环？
 快慢指针：采用两个指针，同时从head触发，p指针每次前进一步，q指针每次前进两步，如果纯在环路，那么两者在某一时刻一定会相遇。
 ```java
 public boolean hasRing(Node head){
@@ -294,10 +294,11 @@ public boolean hasRing(Node head){
             p = p.next;
             q = q.next;
             
-            if (q.next != null) {
-                q = q.next;
+            if (q.next == null) {
+                break;
             }
             
+            q = q.next;
             if (p != null && p == q) {
                 return true;
             }
@@ -313,7 +314,7 @@ public boolean hasRing(Node head){
     
 ```
 
-##### 对两个有序链表进行合并？
+##### 3、对两个有序链表进行合并？
 ```java
  public ListNode Merge(ListNode list1,ListNode list2) {
         //新建一个头节点，用来存合并的链表。
@@ -342,7 +343,7 @@ public boolean hasRing(Node head){
     }
 ```
 
-##### 输入一个链表，反转链表后，输出新链表的表头。
+##### 4、输入一个链表，反转链表后，输出新链表的表头。
 采用两个指针，一个指向当前head，一个指向head前一个数据。然后不断的将两个指针同时向后移动，直到最后一位。
 ```java
 public ListNode ReverseList(ListNode head){
