@@ -76,24 +76,20 @@ public int[] selectSort(int[] a){
     }
 ```
 ##### 插入排序：</br>
-插入排序的思想为假定前面j项已经排列完成，然后将j+1项插入到钱j项中，最终达到排序的效果。</br>
+插入排序的思想为假定前面j项已经排列完成。</br>
 ![conv_ops](/image/insert.gif)
 ```java
-public int[] insertSort(int[] a){
-        int len = a.length;
-        if (len == 0){
-            return a;
-        }
-        for (int i = 1;i<len - 1;i++){
-            for (int j = 0;j < i;j++){
-                if (a[j] < a[j+1]){
-                    int temp = a[j+1];
-                    a[j+1] = a[i];
-                    a[i] = temp;
-                }
+public int[] insertionSort(int[] nums){
+        for (int i = 1;i < nums.length;i++){
+            int j;
+            int temp = nums[i];
+            //j前面的都已经是有序，位置j的值寻找其正确位置的过程中，将大于j的元素不断往右移最后留出来的位置就是j的正确位置；
+            for (j = i;j > 0 && nums[j] < nums[j -1];j--){
+                nums[j] = nums[j -1];
             }
+            nums[j] = temp;
         }
-        return a;
+        return nums;
     }
 ```
 
