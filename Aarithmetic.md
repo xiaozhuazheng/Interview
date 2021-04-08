@@ -39,7 +39,7 @@ public int[] bubbleSort(int[] a){
         if (len == 0){
             return a;
         }
-        for (int i =0;i<len;i++){
+        for (int i =0;i<len - 1;i++){
             for (int j = 0;j<len -i-1;j++){
                 if (a[j+1] < a[j]){
                     int temp = a[j+1];
