@@ -94,6 +94,37 @@ public int[] insertionSort(int[] nums){
 ```
 
 ##### 快速排序：</br>
+思路：首先，取一个值，这个值可以是数组的第一个元素，也可以是数组最中间的元素，第一遍将比该值大的元素移到最右边，比该值小的元素移到左边，后面递归左右的数组！
+```java
+public int[] quikSort(int[] nums,int start,int end){
+        int left = 0;
+        int right = end;
+        
+        int first = nums[0];
+        //左右两个指针分别指向开始和结尾
+        while (left < right){
+            //从最右边开始，指针想左移，知道找到比first小的元素
+            while (left < right && nums[right] > first){
+                right --;
+            }
+            //将找到的元素赋值给left，此时right的位置空出来
+            nums[left] = nums[right];
+            
+            //从最左边开始，指针想右移，知道找到比first大的元素
+            while (left < right && nums[left] < first){
+                left ++;
+            }
+            //将该找到比first大的元素赋值给上面空出来的right的位置
+            nums[right] = nums[left];
+        }
+
+        nums[left] = first;
+        quikSort(nums,start,left);
+        quikSort(nums,right+1,end);
+
+        return nums;
+    }
+```
 ##### 堆排序：</br>
 
 ### 查找
