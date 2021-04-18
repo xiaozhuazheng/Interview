@@ -386,7 +386,7 @@ public ListNode ReverseList(ListNode head){
             pre = current;
             current = temp;
         }
-        return current；
+        return pre；//这里要返回pre，而不是current
        
     }
 ```
