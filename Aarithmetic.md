@@ -342,31 +342,27 @@ public boolean hasRing(Node head){
 ```
 
 ##### 3、对两个有序链表进行合并？
+设定一个哨兵节点 prehead ，这可以在最后让我们比较容易地返回合并后的链表。我们维护一个 prev 指针，我们需要做的是调整它的 next 指针。然后，我们重复以下过程，直到 l1 或者 l2 指向了 null ：如果 l1 当前节点的值小于等于 l2 ，我们就把 l1 当前的节点接在 prev 节点的后面同时将 l1 指针往后移一位。否则，我们对 l2 做同样的操作。不管我们将哪一个元素接在了后面，我们都需要把 prev 向后移一位。在循环终止的时候， l1 和 l2 至多有一个是非空的，将非空的添加到链表后面。
 ```java
  public ListNode Merge(ListNode list1,ListNode list2) {
-        //新建一个头节点，用来存合并的链表。
-        ListNode head=new ListNode(-1);
-        head.next=null;
-        ListNode root=head;
-        while(list1!=null&&list2!=null){
-            if(list1.val<list2.val){
-                head.next=list1;
-                head=list1;
-                list1=list1.next;
-            }else{
-                head.next=list2;
-                head=list2;
-                list2=list2.next;
+        ListNode prehead = new ListNode(-1);
+
+        ListNode prev = prehead;
+        while (l1 != null && l2 != null) {
+            if (l1.val <= l2.val) {
+                prev.next = l1;
+                l1 = l1.next;
+            } else {
+                prev.next = l2;
+                l2 = l2.next;
             }
+            prev = prev.next;
         }
-        //把未结束的链表连接到合并后的链表尾部
-        if(list1!=null){
-            head.next=list1;
-        }
-        if(list2!=null){
-            head.next=list2;
-        }
-        return root.next;
+
+        // 合并后 l1 和 l2 最多只有一个还未被合并完，我们直接将链表末尾指向未合并完的链表即可
+        prev.next = l1 == null ? l2 : l1;
+
+        return prehead.next;
     }
 ```
 
