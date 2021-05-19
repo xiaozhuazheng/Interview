@@ -104,14 +104,14 @@ public int[] quikSort(int[] nums,int start,int end){
         //左右两个指针分别指向开始和结尾
         while (left < right){
             //从最右边开始，指针想左移，知道找到比first小的元素
-            while (left < right && nums[right] > first){
+            while (left < right && nums[right] >= first){
                 right --;
             }
             //将找到的元素赋值给left，此时right的位置空出来
             nums[left] = nums[right];
             
             //从最左边开始，指针想右移，知道找到比first大的元素
-            while (left < right && nums[left] < first){
+            while (left < right && nums[left] <= first){
                 left ++;
             }
             //将该找到比first大的元素赋值给上面空出来的right的位置
@@ -119,8 +119,8 @@ public int[] quikSort(int[] nums,int start,int end){
         }
 
         nums[left] = first;
-        quikSort(nums,start,left);
-        quikSort(nums,right+1,end);
+        if (start < left)quikSort(nums,start,left);
+        if (right < end)quikSort(nums,right+1,end);
 
         return nums;
     }
