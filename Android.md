@@ -62,3 +62,7 @@ public void dispatchMessage(Message msg) {
 从上面的代码可以看到，会通过handleCallback(msg)来处理msg.callback不为空，也就是通过handler.post发送的Runnable，在handleCallback(msg)方法中会通过message.callback.run()来执行Runnable的run()。
 * 如何实现延迟消息：不管Handler怎么发送消息，最终都会调用到MessageQueue.enqueueMessage(Message msg, long when)来进行消息入队列，所谓的消息队列并不是队列结构，而是单链表结构。当当前队列为空或者需要入队的Message的延迟时间when比头节点的when小时，则将msg插入头节点，否则，按时间将消息进行排序。所谓消息延迟，并不是延迟去发送消息，而是延迟的去处理，不管是延迟消息还是普通消息，都会第一时间被放到消息队列里。</br>
 消息处理在底层是通过epoll实现：Looper.loop()不断的调用MessageQueue.next()方法取出消息，在next()方法中，有一个很重要的底层方法nativePollOnce(ptr, nextPollTimeoutMillis)，nativePollOnce方法会一直阻塞，参数ptr就是底层消息队列NativeMessageQueue的指针，nextPollTimeoutMillis表示nativePollOnce的超时时间。当消息队列为空时，nextPollTimeoutMillis = -1，当取出的msg的when，即延时时间大于0时，nextPollTimeoutMillis = msg.when - now，其中now是当前时间，这两种情况都会使epoll进入休眠，释放CPU资源。当nextPollTimeoutMillis = 0时，epoll就会被唤醒，从管道读取事件放入事件集合，这是MessageQueue.next()返回一个Message对象交给Looper.loop()，交给Handler.dispatchMessage()去处理。
+
+### 7、Launcher结构
+Workspace继承自Pageview，用来展示桌面的页面，workspace中可以放入很多CellLayout，而每个CellLayout对应桌面的每一页，CellLayout的一个子View是ShortcutAndWidgetContainer，ShortcutAndWidgetContainer定义实现了应用图标的显示排列。
+
