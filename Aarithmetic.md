@@ -496,8 +496,9 @@ public boolean isValid(String s) {
 
 ### 二叉树
 #####二叉树的创建与遍历
-    //TreeNode结构
-    static class TreeNode{
+```java
+     //TreeNode结构
+     static class TreeNode{
         private String data;
         private TreeNode left;
         private TreeNode right;
@@ -505,14 +506,14 @@ public boolean isValid(String s) {
         public TreeNode(String data){
             this.data = data;
         }
-    }
-```java
+     }
               
      String[] arr = {"1","2","3","#","#","4","#","#","5","#","6"};
      LinkedList<String> in = new LinkedList<>();
      for (String item : arr){
         in.add(item);
      }
+     createBinaryTree(in)；
               
      /**
      * 递归三要素：
