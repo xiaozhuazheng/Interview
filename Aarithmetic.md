@@ -495,6 +495,87 @@ public boolean isValid(String s) {
 ```
 
 ### 二叉树
+#####二叉树的创建与遍历
+    //TreeNode结构
+    static class TreeNode{
+        private String data;
+        private TreeNode left;
+        private TreeNode right;
+
+        public TreeNode(String data){
+            this.data = data;
+        }
+    }
+```java
+              
+     String[] arr = {"1","2","3","#","#","4","#","#","5","#","6"};
+     LinkedList<String> in = new LinkedList<>();
+     for (String item : arr){
+        in.add(item);
+     }
+              
+     /**
+     * 递归三要素：
+     * 1、特殊情况判断
+     * 2、递归循环操作
+     * 3、循环退出条件
+     */
+    private static TreeNode createBinaryTree(LinkedList<String> inputList) {
+        //1、特殊情况判断
+        if (inputList == null || inputList.isEmpty()) {
+            return null;
+        }
+
+
+        String value = inputList.remove(0);
+
+        //2、递归循环操作
+        if (value == "#"){
+            return null;
+        }
+
+        //2、循环
+        TreeNode node = new TreeNode(value);
+        node.left = createBinaryTree(inputList);
+        node.right = createBinaryTree(inputList);
+
+        return node;
+    }
+              
+    //先序
+    private static void getBefor(TreeNode head){
+        if (head == null) {//最简单问题
+            System.out.print("#");
+            return;
+        }
+
+        System.out.print(head.data + " ");
+        getBefor(head.left);
+        getBefor(head.right);
+    }
+
+    //中序
+    private static void getMind(TreeNode head){
+        if (head == null) {//最简单问题
+            return;
+        }
+
+        getMind(head.left);
+        System.out.print(head.data + " ");
+        getMind(head.right);
+    }
+
+    //后序
+    private static void getEnd(TreeNode head){
+        if (head == null) {//最简单问题
+            return;
+        }
+
+        getEnd(head.left);
+        getEnd(head.right);
+        System.out.print(head.data + " ");
+    }       
+```
 ##### 输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。例如输入前序遍历序列{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}，则重建二叉树并返回。
 由前序可以知道该树的根节点（前序第一个节点），通过根节点在中序的位置，划分出根节点的左子树与右子树；然后采用递归，分别得到左右树。
 ```java
